@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Application API</string>
+    <string name="drawer_button">drawer_button</string>
+    <string name="profile">Profile</string>
+    <string name="dial">Dial</string>
+    <string name="find_your_movie">find your movie</string>
+    <string name="take_your_pic">take your pic</string>
+</resources>

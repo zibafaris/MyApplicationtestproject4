@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        >
+        <EditText
+            android:id="@+id/edtname"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="60dp"
+            android:hint="Inter your name"
+            android:layout_gravity="center"
+            android:background="@drawable/custome_border"
+            >
+
+        </EditText>
+        <EditText
+            android:id="@+id/edtfamily"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:hint="Inter your family"
+            android:layout_gravity="center"
+            android:background="@drawable/custome_border"
+            >
+
+        </EditText>
+        <EditText
+            android:id="@+id/edtage"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:hint="Inter your age"
+            android:layout_gravity="center"
+            android:background="@drawable/custome_border"
+            android:inputType="number"
+            >
+
+        </EditText>
+        <EditText
+            android:id="@+id/edtemail"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:hint="----@gmail.com"
+            android:layout_gravity="center"
+            android:background="@drawable/custome_border"
+            >
+
+        </EditText>
+
+        <Button
+            android:id="@+id/btnreview"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="review"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginTop="70dp"
+            android:onClick="review"
+            android:background="@color/colorPrimary">
+        </Button>
+
+    </LinearLayout>
+</LinearLayout>

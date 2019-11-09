@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
+    tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="ExtraText"
+        >
+
+        <Button
+            android:id="@+id/button3"
+            android:text="@string/drawer_button"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="70dp"
+            android:background="@color/colorPrimary"
+            >
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/colorWhite"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:orientation="vertical"
+        tools:ignore="RtlHardcoded">
+
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="80dp"
+            android:src="@mipmap/ic_launcher_round"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:id="@+id/recycler"
+            />
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>
