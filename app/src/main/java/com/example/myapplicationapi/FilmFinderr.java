@@ -4,81 +4,72 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import com.example.myapplicationapi.Movies.Search;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
-public class FilmFinderr extends AppCompatActivity implements MyMoviesViewAdapter.ItemClickListener,MyRecyclerViewAdapter.ItemClickListener{
-    MyMoviesViewAdapter adapter;
-    MyRecyclerViewAdapter adapterLeft;
-    ArrayList<Search> MoviesArry;
-    RecyclerView recyclerView;
-    EditText edtsearch;
+public class FilmFinderr  extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.film_finder);
-
-        recyclerView = findViewById(R.id.resnewMovies);
-        recyclerView.setLayoutManager(new LinearLayoutManager(FilmFinderr.this));
-
-        Button btnfind = findViewById(R.id.btnfind);
-        edtsearch = findViewById(R.id.edtsearch);
-        btnfind.setOnClickListener(new View.OnClickListener() {
+        final EditText name=findViewById(R.id.edtsearch);
+        final TextView title=findViewById(R.id.title);
+        final TextView year=findViewById(R.id.yeartxt);
+        final TextView genre=findViewById(R.id.genre);
+        final TextView director=findViewById(R.id.director);
+        final TextView writer=findViewById(R.id.writer);
+        final TextView actors=findViewById(R.id.actors);
+        final TextView plot=findViewById(R.id.plot);
+        final TextView lang=findViewById(R.id.lang);
+        final TextView country=findViewById(R.id.country);
+        final TextView awards=findViewById(R.id.awards);
+        final TextView poster=findViewById(R.id.poster);
+        final TextView rating=findViewById(R.id.rating);
+        final TextView website=findViewById(R.id.website);
+        Button btnsearch=findViewById(R.id.btnfind);
+        btnsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String searchFilm= edtsearch.getText().toString();
+                String search="http://omdbapi.com/?t="+name.getText()+"&apikey=a0a88957";
+                try{
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    client.get(search,new JsonHttpResponseHandler()
+                    {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
 
-                AsyncHttpClient client = new AsyncHttpClient();
-                client.get("http://www.omdbapi.com/?apikey=98869092&t="+searchFilm, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        super.onFailure(statusCode, headers, throwable, errorResponse);
-                        System.out.println(throwable.getMessage());
-                    }
+                            try {
+                                title.setText(response.getString("Title"));
+                                year.setText(response.getString("Year"));
+                                genre.setText(response.getString("Genre"));
+                                director.setText(response.getString("Director"));
+                                writer.setText(response.getString("Writer"));
+                                actors.setText(response.getString("Actors"));
+                                plot.setText(response.getString("Plot"));
+                                lang.setText(response.getString("Language"));
+                                country.setText(response.getString("Country"));
+                                poster.setText(response.getString("Poster"));
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        try {
-                            MoviesArry=new ArrayList<>();
-                            JSONObject jsonobject = new JSONObject(responseString);
-                            JSONArray jsonoArray = new JSONArray(jsonobject.getString("Search"));
-                            for (int i = 0; i < jsonoArray.length(); i++) {
-                                JSONObject jsonSub = jsonoArray.getJSONObject(i);
-                                MoviesArry.add(new Search(jsonSub.getString("Poster"),jsonSub.getString("Title"),jsonSub.getString("Year"),jsonSub.getString("imdbID"),"","",""));
-
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                            adapter = new MyMoviesViewAdapter(FilmFinderr.this, MoviesArry);
-                            adapter.setClickListener(FilmFinderr.this);
-                            recyclerView.setAdapter(adapter);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
+                }
+                catch (Exception ex){
+                    ex.printStackTrace();
+                }
             }
         });
 
-    }
 
-    @Override
-    public void onItemClick(View view, int position) {
-        if (adapterLeft.getItem(position).name == "Movie Search") {
-
-        }
-    }
-
-    @Override
-    public void onItemClickMovie(View view, int position) {
     }
 }
