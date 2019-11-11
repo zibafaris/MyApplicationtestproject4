@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.TextHttpResponseHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
@@ -38,81 +37,40 @@ public class FilmFinderr  extends AppCompatActivity {
         btnsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //url= http://www.omdbapi.com/?i=tt3896198&apikey=254f905a
+                //url=http://www.omdbapi.com/?i=tt3896198&apikey=254f905a
 
                 final EditText name=findViewById(R.id.edtsearch);
-                final String search = "http://www.omdbapi.com/?s="+name.getText()+"&apikey=b80e72c2";
+                String search = "http://www.omdbapi.com/?i="+name.getText()+"&apikey=254f905a";
 
                 AsyncHttpClient client = new AsyncHttpClient();
-                client.get(search, new TextHttpResponseHandler() {
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                client.get(search, new  JsonHttpResponseHandler() {
+
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                        try {
+                            title.setText(response.getString("Title"));
+                            year.setText(response.getString("Year"));
+                            genre.setText(response.getString("Genre"));
+                            director.setText(response.getString("Director"));
+                            writer.setText(response.getString("Writer"));
+                            actors.setText(response.getString("Actors"));
+                            plot.setText(response.getString("Plot"));
+                            lang.setText(response.getString("Language"));
+                            country.setText(response.getString("Country"));
+                            poster.setText(response.getString("Poster"));
+                            awards.setText(response.getString("Awards"));
+                            rating.setText(response.getString("Rating"));
+                            website.setText(response.getString("Website"));
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        try{
-                            AsyncHttpClient client = new AsyncHttpClient();
-                            client.get(search,new JsonHttpResponseHandler()
-                            {
-                                @Override
-                                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                                    super.onSuccess(statusCode, headers, response);
-
-                                    try {
-                                        title.setText(response.getString("Title"));
-                                        year.setText(response.getString("Year"));
-                                        genre.setText(response.getString("Genre"));
-                                        director.setText(response.getString("Director"));
-                                        writer.setText(response.getString("Writer"));
-                                        actors.setText(response.getString("Actors"));
-                                        plot.setText(response.getString("Plot"));
-                                        lang.setText(response.getString("Language"));
-                                        country.setText(response.getString("Country"));
-                                        poster.setText(response.getString("Poster"));
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            });
-                        }
-                        catch (Exception ex){
-                            ex.printStackTrace();
-                        }
                     }
                 });
-
-//                try{
-//                    AsyncHttpClient client = new AsyncHttpClient();
-//                    client.get(search,new JsonHttpResponseHandler()
-//                    {
-//                        @Override
-//                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                            super.onSuccess(statusCode, headers, response);
-//
-//                            try {
-//                                title.setText(response.getString("Title"));
-//                                year.setText(response.getString("Year"));
-//                                genre.setText(response.getString("Genre"));
-//                                director.setText(response.getString("Director"));
-//                                writer.setText(response.getString("Writer"));
-//                                actors.setText(response.getString("Actors"));
-//                                plot.setText(response.getString("Plot"));
-//                                lang.setText(response.getString("Language"));
-//                                country.setText(response.getString("Country"));
-//                                poster.setText(response.getString("Poster"));
-//
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    });
-//                }
-//                catch (Exception ex){
-//                    ex.printStackTrace();
-//                }
             }
         });
     }
